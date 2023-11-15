@@ -11,7 +11,7 @@ bidistribution(p, N, h) = factorial(N) / (factorial(h) * factorial(N - h)) * (p^
 """
 Probability of hitted `h` or more.
 
-\sum_{n=h}^{N}B(n|N,P̃_A).
+``\\sum_{n=h}^{N}B(n|N,P̃_A)``.
 
 `h` is the number of event that hit the alarmed area; please refer to [zecharTestingAlarmbasedEarthquake2008; Eq. 3](@citet).
 """
@@ -26,7 +26,11 @@ function probhmore(P̃_A, N, h)
 end
 
 
-function molchancb(N; resolution=0.001, alpha=0.05)
+"""
+`molchancb(N, alpha; resolution=0.001)` returns a vector of alarm rate and a vector of missing rate;
+they constitute the confidence boundary of `1-alpha` × 100%.
+"""
+function molchancb(N, alpha; resolution=0.001)
     P̃_A = 0:resolution:1 # The probability-weighted area of alarmed region.
 
     alrate_cb = Float64[]
