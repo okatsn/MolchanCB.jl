@@ -1,6 +1,6 @@
 using MolchanCB
 using Documenter
-# using DocumenterCitations
+using DocumenterCitations
 # # 1. Uncomment this line and the CitationBibliography line
 # # 2. add docs/src/refs.bib
 # # 3. Cite something in refs.bib and add ```@bibliography ``` (in index.md, for example)

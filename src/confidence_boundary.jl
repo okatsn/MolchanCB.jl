@@ -1,6 +1,8 @@
 """
 `bidistribution(p, N, h)`, returns the probability of `h` hits in alarmed region A⊆R out of total `N` events, assuming a binomial distribution for whether hit the region of A or out of A.
 
+``B(h|N, p) = \\frac{N!}{h! (N - h)!} (p^h) ((1 - p)^{N - h})``
+
 - R is the region we wish to predict the target event.
 - `p` is in `[0, 1]`.
 
