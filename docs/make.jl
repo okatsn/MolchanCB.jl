@@ -1,5 +1,6 @@
 using MolchanCB
 using Documenter
+using DocumenterCitations
 
 DocMeta.setdocmeta!(MolchanCB, :DocTestSetup, :(using MolchanCB); recursive=true)
 
@@ -16,6 +17,9 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+    ],
+    plugins=[
+        CitationBibliography(joinpath(@__DIR__, "src", "refs.bib")),
     ],
 )
 
