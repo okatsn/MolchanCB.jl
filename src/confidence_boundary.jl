@@ -11,7 +11,9 @@ bidistribution(p, N, h) = factorial(N) / (factorial(h) * factorial(N - h)) * (p^
 """
 Probability of hitted `h` or more.
 
-Please refer to [zecharTestingAlarmbasedEarthquake2008; Eq. 3](@citet).
+\sum_{n=h}^{N}B(n|N,P̃_A).
+
+`h` is the number of event that hit the alarmed area; please refer to [zecharTestingAlarmbasedEarthquake2008; Eq. 3](@citet).
 """
 function probhmore(P̃_A, N, h)
     P_h_or_more = fill(0.0, length(P̃_A))
@@ -31,9 +33,11 @@ function molchancb(N; resolution=0.001, alpha=0.05)
     msrate_cb = Float64[]
     for h = 1:N
         P_h_or_more = probhmore(P̃_A, N, h)
-        approxid = findlast(P_h_or_more .<= alpha)
-        push!(alrate_cb, P_h_or_more[approxid]) # confidence boundary of the alarm rate
-        push!(msrate_cb, N - h / N) # confidence boundary of the missing rate
+        approxid = findlast(P_h_or_more .<= alpha) # finding the minimum value of τ (i.e. alarmed rate) that solves the equality in Eq. 3 (Zechar 2008) for each discrete ν (i.e. missing rate).
+        τ = P_h_or_more[approxid]
+        ν = N - h / N
+        push!(alrate_cb, τ) # confidence boundary of the alarm rate
+        push!(msrate_cb, ν) # confidence boundary of the missing rate
     end
 
     return (alrate_cb, msrate_cb)
