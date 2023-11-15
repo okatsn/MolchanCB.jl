@@ -38,8 +38,8 @@ function molchancb(N, alpha; resolution=0.001)
     for h = 1:N
         P_h_or_more = probhmore(P̃_A, N, h)
         approxid = findlast(P_h_or_more .<= alpha) # finding the minimum value of τ (i.e. alarmed rate) that solves the equality in Eq. 3 (Zechar 2008) for each discrete ν (i.e. missing rate).
-        τ = P_h_or_more[approxid]
-        ν = N - h / N
+        τ = P̃_A[approxid]
+        ν = (N - h) / N
         push!(alrate_cb, τ) # confidence boundary of the alarm rate
         push!(msrate_cb, ν) # confidence boundary of the missing rate
     end

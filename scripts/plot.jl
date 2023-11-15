@@ -1,6 +1,7 @@
 using CairoMakie, AlgebraOfGraphics
 using MolchanCB
 using DataFrames
+using CategoricalArrays
 
 createdata(;
     missing_rate=Float64[],
@@ -17,7 +18,7 @@ createdata(;
 df = createdata()
 
 N = 15
-for alpha in [0.01, 0.05, 0.25, 0.50]
+for alpha = [0.01, 0.05, 0.25, 0.50]
     N = 15
     (al, ms) = molchancb(N, alpha)
     append!(df, createdata(;
@@ -29,4 +30,6 @@ for alpha in [0.01, 0.05, 0.25, 0.50]
 end
 
 
-f = AlgebraOfGraphics.data(df) * visual(Lines) * mapping(:τ, :ν) * mapping(color=:α) |> draw
+transform!(df, :α => CategoricalArray; renamecols=false)
+
+data(df) * visual(Lines) * mapping(:τ, :ν) * mapping(color=:α) |> plt -> draw(plt; axis=(; aspect=AxisAspect(1)))
