@@ -8,7 +8,7 @@
 
 Please refer to [zecharTestingAlarmbasedEarthquake2008; Eq. 2](@citet).
 """
-bidistribution(p, N, h) = factorial(N) / (factorial(h) * factorial(N - h)) * (p^h) * ((1 - p)^(N - h))
+bidistribution(p, N, h) = binomial(N, h) * (p^h) * ((1 - p)^(N - h))
 
 """
 Probability of hitted `h` or more.
@@ -46,5 +46,5 @@ function molchancb(N, alpha; resolution=0.001)
         push!(msrate_cb, ν) # confidence boundary of the missing rate
     end
 
-    return (alrate_cb, msrate_cb)
+    return (alarm_rate=alrate_cb, missing_rate=msrate_cb)
 end
