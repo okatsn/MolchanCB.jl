@@ -1,3 +1,6 @@
+# Performance hints:
+# - https://stackoverflow.com/questions/37193586/bigints-seem-slow-in-julia
+# - https://julialang.org/blog/2017/01/moredots/#other-partway-solutions
 """
 `bidistribution(p, N, h)`, returns the probability of `h` hits in alarmed region A⊆R out of total `N` events, assuming a binomial distribution for whether hit the region of A or out of A.
 
@@ -10,6 +13,8 @@ Please refer to [zecharTestingAlarmbasedEarthquake2008; Eq. 2](@citet).
 """
 bidistribution(p, N, h) = binomial(N, h) * (p^h) * ((1 - p)^(N - h))
 
+bidistributionmap(p, N, h) = binomial(N, h) .* (p .^ h) .* ((1 .- p) .^ (N - h))
+
 """
 Probability of hitted `h` or more.
 
@@ -21,7 +26,7 @@ function probhmore(P̃_A, N, h)
     P_h_or_more = fill(0.0, length(P̃_A))
 
     for k in h:N
-        P_h_or_more .+= bidistribution.(P̃_A, N, k)
+        P_h_or_more .+= bidistributionmap(P̃_A, N, k)
     end
 
     return P_h_or_more
