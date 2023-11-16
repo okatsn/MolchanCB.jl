@@ -1,7 +1,7 @@
 name = "MolchanCB"
 uuid = "70383841-2333-46ca-adf2-3d6ff66a2e6b"
 authors = ["okatsn <okatsn@gmail.com> and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [compat]
 julia = "1.9"
