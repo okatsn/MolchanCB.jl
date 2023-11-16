@@ -31,8 +31,13 @@ end
 """
 `molchancb(N, alpha; resolution=0.001)` returns a vector of alarm rate and a vector of missing rate;
 they constitute the confidence boundary of `1-alpha` × 100%.
+
+Use `N = big(N)` when encountering `OverflowError`.
 """
 function molchancb(N, alpha; resolution=0.001)
+    if isa(N, BigInt)
+        resolution = BigFloat(resolution) # This brings 1.5 times speed up.
+    end
     P̃_A = 0:resolution:1 # The probability-weighted area of alarmed region.
 
     alrate_cb = Float64[]
